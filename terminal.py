@@ -16,8 +16,12 @@ def checkCells(row, target):
     yCount = 0;
         
     for cell in row:
+                  
+        if cell == "":
+            yCount = 0;
+            xCount = 0;
             
-        if cell == "X":
+        elif cell == "X":
             yCount = 0;
             xCount += 1;
                 
