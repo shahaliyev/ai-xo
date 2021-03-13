@@ -69,7 +69,7 @@ def checkDiagonals(board, boardSize, target):
     
 
 # Checks for terminal states    
-def isTerminal(board, target):
+def isTerminal(board, boardSize, target):
     return checkRows(board, target) | checkColumns(board, target) | checkDiagonals(board, boardSize, target);
 
 
@@ -77,8 +77,8 @@ def isTerminal(board, target):
 boardSize = 3;
 target = 3;
 
-board = [["X", "", "X"],
+board = [["X", "", "O"],
          ["X", "O", ""],
          ["O", "X", "O"]];
 
-print(isTerminal(board, target));
+print(isTerminal(board, boardSize, target));
