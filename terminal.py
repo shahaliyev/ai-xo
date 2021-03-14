@@ -1,9 +1,12 @@
 import numpy as np;
 
+winner = "";
+
 # Checks if cells meet the target
 def checkCells(row, target):
     
     # tracking the consecutive Xs and Os
+    global winner;
     xCount = 0;
     oCount = 0;
         
@@ -18,6 +21,7 @@ def checkCells(row, target):
             xCount += 1;
                 
             if xCount == target:
+                winner = "X"
                 return True;
                         
         elif cell == "O":
@@ -25,6 +29,7 @@ def checkCells(row, target):
             oCount += 1;
                 
             if oCount == target:
+                winner = "O";
                 return True;
     
     return False;
@@ -67,18 +72,36 @@ def checkDiagonals(board, boardSize, target):
             
     return False;
     
+# Checks if there are moves left
+def noMovesLeft(board):
+    for row in board:
+        for cell in row:
+            if cell == "":
+                return False;
+    
+    return True;
+
+
+# Checks if game is Tie
+def isTie(board):
+    if noMovesLeft(board) & (winner == ""):
+        return True;
+    
+    return False;
+
 
 # Checks for terminal states    
 def isTerminal(board, boardSize, target):
-    return checkRows(board, target) | checkColumns(board, target) | checkDiagonals(board, boardSize, target);
+    return checkRows(board, target) | checkColumns(board, target) | checkDiagonals(board, boardSize, target) | noMovesLeft(board);
 
 
 # Test
-boardSize = 3;
-target = 3;
+# boardSize = 3;
+# target = 3;
 
-board = [["X", "", "O"],
-         ["X", "O", ""],
-         ["O", "X", "O"]];
+# board = [["X", "O", "X"],
+#           ["X", "X", "O"],
+#           ["O", "X", "O"]];
 
-print(isTerminal(board, boardSize, target));
+# print(isTerminal(board, boardSize, target));
+# print(winner);
