@@ -85,3 +85,19 @@ def minimax(board, depth, isMax, alpha, beta):
                         break;
             
         return bestVal;
+
+    
+ # Test
+boardSize = 3;
+target = 3;
+
+board = [["X", "", ""],
+         ["", "", ""],
+         ["O", "", ""]];
+
+player = "X";
+opponent = "O";
+
+
+if not state.isTerminal(board, boardSize, target):
+    print(makeMove(board));
