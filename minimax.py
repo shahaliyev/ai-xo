@@ -1,6 +1,9 @@
 import terminal as state
 
 
+INFINITY = float('inf');
+
+
 def evaluate(board):
 
     if state.isTie(board):
@@ -16,7 +19,7 @@ def evaluate(board):
 def makeMove(board):
     
     bestMove = [];
-    bestVal = float('-inf');
+    bestVal = -INFINITY;
     
     for i, row in enumerate(board):
         for j, cell in enumerate(row):   
@@ -24,7 +27,7 @@ def makeMove(board):
             if cell == "":
           
                 board[i][j] = player;
-                value = minimax(board, 0, False);
+                value = minimax(board, 0, False, -INFINITY, INFINITY);
                 board[i][j] = "";
                 
                 if value > bestVal:
@@ -34,14 +37,14 @@ def makeMove(board):
     return bestMove;
 
 
-def minimax(board, depth, isMax):
+def minimax(board, depth, isMax, alpha, beta):
     
-    if state.isTerminal(board, boardSize, target) == True:
+    if state.isTerminal(board, boardSize, target):
         return evaluate(board);
     
     if isMax:
         
-        bestVal = float('-inf');
+        bestVal = -INFINITY;
         
         for i, row in enumerate(board):
             for j, cell in enumerate(row):
@@ -49,16 +52,21 @@ def minimax(board, depth, isMax):
                 if cell == "":
                     
                     board[i][j] = player;
-                    value = minimax(board, depth + 1, False);
+                    value = minimax(board, depth + 1, False, alpha, beta);
                     board[i][j] = "";
                     
-                    bestVal = max(bestVal, value);           
+                    bestVal = max(bestVal, value); 
+                    
+                    alpha = max(alpha, bestVal);
+                    
+                    if beta <= alpha:
+                        break;
 
         return bestVal;
 
     else:
         
-        bestVal = float('inf');
+        bestVal = INFINITY;
         
         for i, row in enumerate(board):
             for j, cell in enumerate(row):
@@ -66,24 +74,14 @@ def minimax(board, depth, isMax):
                 if cell == "":
                     
                     board[i][j] = opponent;
-                    value = minimax(board, depth + 1, True);
+                    value = minimax(board, depth + 1, True, alpha, beta);
                     board[i][j] = "";
                     
                     bestVal = min(bestVal, value);
+                    
+                    beta = max(beta, bestVal);
+                    
+                    if beta <= alpha:
+                        break;
             
         return bestVal;
-
-
-# Test
-boardSize = 3;
-target = 3;
-
-board = [["X", "", "O"],
-         ["X", "X", ""],
-         ["O", "", "O"]];
-
-player = "X";
-opponent = "O";
-
-if state.isTerminal(board, boardSize, target) == False:
-    print(makeMove(board));
