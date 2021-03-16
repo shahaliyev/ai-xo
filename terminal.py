@@ -1,12 +1,15 @@
 import numpy as np;
 
+
 winner = "";
+
 
 # Checks if cells meet the target
 def checkCells(row, target):
     
-    # tracking the consecutive Xs and Os
     global winner;
+    
+    # tracking the consecutive Xs and Os
     xCount = 0;
     oCount = 0;
         
@@ -21,7 +24,7 @@ def checkCells(row, target):
             xCount += 1;
                 
             if xCount == target:
-                winner = "X"
+                winner = "X";
                 return True;
                         
         elif cell == "O":
@@ -71,6 +74,7 @@ def checkDiagonals(board, boardSize, target):
             return True;
             
     return False;
+   
     
 # Checks if there are moves left
 def noMovesLeft(board):
@@ -93,15 +97,3 @@ def isTie(board):
 # Checks for terminal states    
 def isTerminal(board, boardSize, target):
     return checkRows(board, target) | checkColumns(board, target) | checkDiagonals(board, boardSize, target) | noMovesLeft(board);
-
-
-# Test
-# boardSize = 3;
-# target = 3;
-
-# board = [["X", "O", "X"],
-#           ["X", "X", "O"],
-#           ["O", "X", "O"]];
-
-# print(isTerminal(board, boardSize, target));
-# print(winner);
