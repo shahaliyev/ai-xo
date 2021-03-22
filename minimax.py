@@ -79,7 +79,7 @@ def minimax(board, depth, isMax, alpha, beta):
                     
                     bestVal = min(bestVal, value);
                     
-                    beta = max(beta, bestVal);
+                    beta = min(beta, bestVal);
                     
                     if beta <= alpha:
                         break;
