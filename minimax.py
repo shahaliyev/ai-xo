@@ -11,10 +11,10 @@ def evaluate(board):
         return 0
     
     elif state.winner == player:
-        return 100000
+        return 1000000
     
     elif state.winner == opponent:
-        return -100000
+        return -1000000
 
 
 # Recursively calls minimax function and returns the optimal move
@@ -22,6 +22,8 @@ def makeMove(board):
     
     bestMove = []
     bestVal = -INFINITY
+    
+    emptyCells = countEmptyCells(board)
     
     # iterating over board
     for i, row in enumerate(board):
@@ -32,7 +34,7 @@ def makeMove(board):
                 # marking board
                 board[i][j] = player
                 # getting minimax value
-                value = minimax(board, 0, False, -INFINITY, INFINITY)
+                value = minimax(board, 0, False, -INFINITY, INFINITY, emptyCells)
                 # backtracking (erasing)
                 board[i][j] = ""
                 
@@ -46,9 +48,11 @@ def makeMove(board):
     return bestMove, bestMove_str
 
 
-def minimax(board, depth, isMax, alpha, beta):
+def minimax(board, depth, isMax, alpha, beta, emptyCells):
     
-    if depth == 2:
+    maxDepth = getDepth(emptyCells - depth)
+    
+    if depth == maxDepth:
         return h.calculate_score(board, boardSize, target)
     
     if isMax:
@@ -61,7 +65,7 @@ def minimax(board, depth, isMax, alpha, beta):
                 if cell == "":
                     
                     board[i][j] = player
-                    value = minimax(board, depth + 1, False, alpha, beta)
+                    value = minimax(board, depth + 1, False, alpha, beta, emptyCells)
                     board[i][j] = ""
                     
                     bestVal = max(bestVal, value)
@@ -83,7 +87,7 @@ def minimax(board, depth, isMax, alpha, beta):
                 if cell == "":
                     
                     board[i][j] = opponent
-                    value = minimax(board, depth + 1, True, alpha, beta)
+                    value = minimax(board, depth + 1, True, alpha, beta, emptyCells)
                     board[i][j] = ""
                     
                     bestVal = min(bestVal, value)
@@ -96,22 +100,82 @@ def minimax(board, depth, isMax, alpha, beta):
         return bestVal
 
     
- # Test
-boardSize = 8;
-target = 5;
+def countEmptyCells(board):
+    
+    cnt = 0
+    
+    for row in board:
+        for cell in row:
+            if cell == "":
+                cnt += 1
+                
+    return cnt
 
-board = [ ["", "", "",'', "", "", "", ""],
-          ["", "", "",'', "", "", "", ""],
-          ["", "", "",'', "", "", "", ""],
-          ["", "", "",'', "", "", "", ""],
-          ["", "", "",'', "", "", "", ""],
-          ["", "", "",'', "", "", "", ""],
-          ["", "", "",'', "", "", "", ""],
-          ["", "", "",'', "", "", "", ""]]
+
+def getDepth(cnt):
+    
+    depth = 1
+    
+    if cnt > 64:
+        depth = 1
+    
+    elif cnt > 36:
+        depth = 2
+    
+    elif cnt > 16:
+        depth = 3
+    
+    else:
+        depth = 4
+
+    
+    return depth
+
+
+# Test
+boardSize = 12;
+target = 6;
 
 player = "X"
 opponent = "O"
 
+board = [ ["", "", "",'', "", "", "", "", "", "", "", ""],
+          ["", "", "",'', "", "", "", "", "", "", "", ""],
+          ["", "", "",'', "", "", "", "", "", "", "", ""],
+          ["", "", "",'', "", "", "", "", "", "", "", ""],
+          ["", "", "",'', "", "", "", "", "", "", "", ""],
+          ["", "", "",'', "", "", "", "", "", "", "", ""],
+          ["", "", "",'', "", "", "", "", "", "", "", ""],
+          ["", "", "",'', "", "", "", "", "", "", "", ""],
+          ["", "", "",'', "", "", "", "", "", "", "", ""],
+          ["", "", "",'', "", "", "", "", "", "", "", ""],
+          ["", "", "",'', "", "", "", "", "", "", "", ""],
+          ["", "", "",'', "", "", "", "", "", "", "", ""]]
 
-if not state.isTerminal(board, boardSize, target):
-    print(makeMove(board))
+
+# board = [ ["",   "",    "",     "",     "",     ""], 
+#           ["",   "",    "",     "",     "",     ""], 
+#           ["",   "",    "",     "",     "",     ""], 
+#           ["",   "",    "",     "",     "",     ""], 
+#           ["",   "",    "",     "",     "",     ""], 
+#           ["",   "",    "",     "",     "",     ""]]
+
+
+# board = [ ["",   "",    "",     "",     "",     "",     "",     ""], 
+#           ["",   "",    "",     "",     "",     "",     "",     ""], 
+#           ["",   "",    "",     "",     "",     "",     "",     ""], 
+#           ["",   "",    "",     "",     "",     "",     "",     ""], 
+#           ["",   "",    "",     "",     "",     "",     "",     ""], 
+#           ["",   "",    "",     "",     "",     "",     "",     ""], 
+#           ["",   "",    "",     "",     "",     "",     "",     ""], 
+#           ["",   "",    "",     "",     "",     "",     "",     ""]]
+
+# board = [ ["",      "",     "",  ""], 
+         
+#           ["",      "",     "",  ""],  
+          
+#           ["",      "",     "",  ""],  
+           
+#           ["",      "",     "",  ""],  ]
+
+print(makeMove(board))
