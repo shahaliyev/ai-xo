@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[132]:
-
-
 import numpy as np
 
 
@@ -27,13 +21,12 @@ def getScore(lines, boardSize, target):
                     opponentCount += 1
 
             if opponentCount == 0:
-                score += 10 ** playerCount
+                score += 8 ** playerCount
 
             elif playerCount == 0:
-                score += - (10**opponentCount)
+                score += - (10 ** opponentCount)
 
     return score
-
 
 
 def get_Scores_for_Row(board,boardSize,target):
@@ -44,35 +37,29 @@ def get_Scores_for_Column(board,boardSize,target):
     return  getScore(transposed, boardSize, target)
 
 def get_Scores_for_Diagonal(board,boardSize,target):
+    
     diag_score = 0
-    
-    # getting reversed board
-    reverseBoard = np.flip(board, 1)
-    
-    for x in range(-boardSize + 1, boardSize):
+    a = np.array(board)
+
+    all_diagonals = [a[::-1,:].diagonal(i) for i in range(-a.shape[0]+1,a.shape[1])]
+
+    all_diagonals.extend(a.diagonal(i) for i in range(a.shape[1]-1,-a.shape[0],-1))
+
+    for my_length in range(target,boardSize+1):
+        my_diagonals = list(filter(lambda x: len(x) == my_length,all_diagonals))
+        diag_score += getScore(my_diagonals,my_length,target)
         
-        # getting the next diagonal in both directions
-        diagonal = np.diag(board, x)
-        reverseDiag = np.diag(reverseBoard, x)
-        
-        # skipping unnecessary diagonals
-        diag_length = len(diagonal)
-        if diag_length < target:
-            continue
-            
-        #score = score + ([diagonal,reverseDiag])
-        
-        diag_score += getScore([diagonal,reverseDiag],diag_length,target)
     return diag_score
 
 
 def calculate_score(board,boardSize,target):
     total_score = 0
+    score_diagonals = 0
     
     score_rows = get_Scores_for_Row(board, boardSize, target)
     
     score_columns = get_Scores_for_Column(board, boardSize, target)
-    
+
     score_diagonals = get_Scores_for_Diagonal(board,boardSize,target)
     
     total_score = score_columns + score_diagonals + score_rows
@@ -81,15 +68,15 @@ def calculate_score(board,boardSize,target):
 
 #test
 
-boardSize = 4
-target = 3
+# boardSize = 4
+# target = 3
 
 
 
-board = [["X", "", "X",''],
-         ["X", "", "X",''],
-         ["O", '', 'O',''],
-         ["O", "", "O",'']]
+# board = [["X", "", "X",''],
+#          ["X", "", "X",''],
+#          ["O", '', 'O',''],
+#          ["O", "", "O",'']]
     
     
     
@@ -97,11 +84,7 @@ board = [["X", "", "X",''],
 player = "X"
 opponent = "O"
 
-calculate_score(board,boardSize,target)
+# calculate_score(board,boardSize,target)
 
 
 # In[ ]:
-
-
-
-
