@@ -1,6 +1,6 @@
 import minimax as mm
 import terminal as state
-import API_requests as req
+import API_req as req
 
 userId = "1039"
 teamId1 = "1251"
