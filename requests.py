@@ -67,7 +67,7 @@ def makeMove(userId, gameId, teamId1, move):
     response = requests.post(url, headers=headers, data=payload)
     print(response.text)
     parsed = json.loads(response.text)
-    return parsed['moveId']
+    return parsed['code'], parsed['moveId']
 
 
 # Gets moves and return lastMove
@@ -85,7 +85,7 @@ def getMoves(gameId, count):
     response = requests.get(url, headers=headers)
     print(response.text)
     parsed = json.loads(response.text)
-    return parsed['moves'][0]['move']
+    return parsed['moves'][0]['symbol'], parsed['moves'][0]['move']
 
 
 # boardMap = 1 for Board Map, 0 for Board String
