@@ -30,11 +30,15 @@ def getScore(lines, boardSize, target):
 
 
 def get_Scores_for_Row(board,boardSize,target):
+    
     return  getScore(board, boardSize, target)
 
+
 def get_Scores_for_Column(board,boardSize,target):
+    
     transposed = np.transpose(board)
     return  getScore(transposed, boardSize, target)
+
 
 def get_Scores_for_Diagonal(board,boardSize,target):
     
@@ -46,6 +50,7 @@ def get_Scores_for_Diagonal(board,boardSize,target):
     all_diagonals.extend(a.diagonal(i) for i in range(a.shape[1]-1,-a.shape[0],-1))
 
     for my_length in range(target,boardSize+1):
+        
         my_diagonals = list(filter(lambda x: len(x) == my_length,all_diagonals))
         diag_score += getScore(my_diagonals,my_length,target)
         
@@ -53,6 +58,7 @@ def get_Scores_for_Diagonal(board,boardSize,target):
 
 
 def calculate_score(board,boardSize,target):
+    
     total_score = 0
     score_diagonals = 0
     
@@ -63,6 +69,7 @@ def calculate_score(board,boardSize,target):
     score_diagonals = get_Scores_for_Diagonal(board,boardSize,target)
     
     total_score = score_columns + score_diagonals + score_rows
+    
     return total_score
 
 
@@ -71,20 +78,12 @@ def calculate_score(board,boardSize,target):
 # boardSize = 4
 # target = 3
 
-
-
 # board = [["X", "", "X",''],
 #          ["X", "", "X",''],
 #          ["O", '', 'O',''],
-#          ["O", "", "O",'']]
-    
-    
-    
+#          ["O", "", "O",'']]  
 
 player = "X"
 opponent = "O"
 
 # calculate_score(board,boardSize,target)
-
-
-# In[ ]:
