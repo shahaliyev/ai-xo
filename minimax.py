@@ -1,104 +1,111 @@
 import terminal as state
 
 
-INFINITY = float('inf');
+INFINITY = float('inf')
 
 
 def evaluate(board):
 
     if state.isTie(board):
-        return 0;
+        return 0
     
     elif state.winner == player:
-        return 1;
+        return 1
     
     elif state.winner == opponent:
-        return -1;
+        return -1
 
 
+# Recursively calls minimax function and returns the optimal move
 def makeMove(board):
     
-    bestMove = [];
-    bestVal = -INFINITY;
+    bestMove = []
+    bestVal = -INFINITY
     
+    # iterating over board
     for i, row in enumerate(board):
         for j, cell in enumerate(row):   
             
             if cell == "":
-          
-                board[i][j] = player;
-                value = minimax(board, 0, False, -INFINITY, INFINITY);
-                board[i][j] = "";
                 
+                # marking board
+                board[i][j] = player
+                # getting minimax value
+                value = minimax(board, 0, False, -INFINITY, INFINITY)
+                # backtracking (erasing)
+                board[i][j] = ""
+                
+                # getting best coordinates
                 if value > bestVal:
-                    bestVal = value;
-                    bestMove = [i, j];
+                    bestVal = value
+                    bestMove = [i, j]
     
     bestMove_str = str(bestMove[0]) + "," + str(bestMove[1])
-    return bestMove, bestMove_str;
+    
+    return bestMove, bestMove_str
 
 
 def minimax(board, depth, isMax, alpha, beta):
     
     if state.isTerminal(board, boardSize, target):
-        return evaluate(board);
+        return evaluate(board)
     
     if isMax:
         
-        bestVal = -INFINITY;
+        bestVal = -INFINITY
         
         for i, row in enumerate(board):
             for j, cell in enumerate(row):
                 
                 if cell == "":
                     
-                    board[i][j] = player;
-                    value = minimax(board, depth + 1, False, alpha, beta);
-                    board[i][j] = "";
+                    board[i][j] = player
+                    value = minimax(board, depth + 1, False, alpha, beta)
+                    board[i][j] = ""
                     
-                    bestVal = max(bestVal, value); 
+                    bestVal = max(bestVal, value)
                     
-                    alpha = max(alpha, bestVal);
-                    
+                    # alpha beta pruning
+                    alpha = max(alpha, bestVal)
                     if beta <= alpha:
-                        break;
+                        break
 
-        return bestVal;
-
+        return bestVal
+    
     else:
         
-        bestVal = INFINITY;
+        bestVal = INFINITY
         
         for i, row in enumerate(board):
             for j, cell in enumerate(row):
                 
                 if cell == "":
                     
-                    board[i][j] = opponent;
-                    value = minimax(board, depth + 1, True, alpha, beta);
-                    board[i][j] = "";
+                    board[i][j] = opponent
+                    value = minimax(board, depth + 1, True, alpha, beta)
+                    board[i][j] = ""
                     
-                    bestVal = min(bestVal, value);
+                    bestVal = min(bestVal, value)
                     
-                    beta = min(beta, bestVal);
-                    
+                    # alpha beta pruning
+                    beta = min(beta, bestVal)
                     if beta <= alpha:
-                        break;
+                        break
             
-        return bestVal;
+        return bestVal
 
     
  # Test
-boardSize = 3;
-target = 3;
+boardSize = 3
+target = 3
 
 board = [["X", "", ""],
          ["", "", ""],
-         ["O", "", ""]];
+         ["O", "", ""]]
 
-player = "X";
-opponent = "O";
+player = "X"
+opponent = "O"
 
 
 if not state.isTerminal(board, boardSize, target):
-    print(makeMove(board));
+    print(makeMove(board))
