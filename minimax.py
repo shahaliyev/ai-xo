@@ -1,5 +1,5 @@
 import terminal as state
-import heuristic as h
+import heuristics as h
 
 
 INFINITY = float('inf')
