@@ -109,22 +109,22 @@ def getBoard(boardMap, gameId):
 
 
 # Examples
-userId = "1039"
-teamId1 = "1251"
-teamId2 = "1263"
-boardSize = 3
-target = 3
-whichGames = "myOpenGames"
-count = "1"
+# userId = "1039"
+# teamId1 = "1251"
+# teamId2 = "1263"
+# boardSize = 3
+# target = 3
+# whichGames = "myOpenGames"
+# count = "1"
 
-gameId = str(createGame(userId, teamId1, teamId2, str(boardSize), str(target)))
+# gameId = str(createGame(userId, teamId1, teamId2, str(boardSize), str(target)))
 
-getMyGames(userId, whichGames)
+# getMyGames(userId, whichGames)
 
-code, moveId = str(makeMove(userId, gameId, teamId1, "1,1"))
+# code, moveId = str(makeMove(userId, gameId, teamId1, "1,1"))
 
-symbol, lastMove = getMoves(gameId, count)
+# symbol, lastMove = getMoves(gameId, count)
 
-getBoard(0, gameId)
+# getBoard(0, gameId)
 
-getBoard(1, gameId)
+# getBoard(1, gameId)
