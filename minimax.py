@@ -34,7 +34,8 @@ def makeMove(board):
                     bestVal = value;
                     bestMove = [i, j];
     
-    return bestMove;
+    bestMove_str = str(bestMove[0]) + "," + str(bestMove[1])
+    return bestMove, bestMove_str;
 
 
 def minimax(board, depth, isMax, alpha, beta):
