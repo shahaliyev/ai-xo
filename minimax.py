@@ -1,4 +1,5 @@
 import terminal as state
+import heuristic as h
 
 
 INFINITY = float('inf')
@@ -10,10 +11,10 @@ def evaluate(board):
         return 0
     
     elif state.winner == player:
-        return 1
+        return 100000
     
     elif state.winner == opponent:
-        return -1
+        return -100000
 
 
 # Recursively calls minimax function and returns the optimal move
@@ -47,8 +48,8 @@ def makeMove(board):
 
 def minimax(board, depth, isMax, alpha, beta):
     
-    if state.isTerminal(board, boardSize, target):
-        return evaluate(board)
+    if depth == 2:
+        return h.calculate_score(board, boardSize, target)
     
     if isMax:
         
@@ -96,12 +97,17 @@ def minimax(board, depth, isMax, alpha, beta):
 
     
  # Test
-boardSize = 3
-target = 3
+boardSize = 8;
+target = 5;
 
-board = [["X", "", ""],
-         ["", "", ""],
-         ["O", "", ""]]
+board = [ ["", "", "",'', "", "", "", ""],
+          ["", "", "",'', "", "", "", ""],
+          ["", "", "",'', "", "", "", ""],
+          ["", "", "",'', "", "", "", ""],
+          ["", "", "",'', "", "", "", ""],
+          ["", "", "",'', "", "", "", ""],
+          ["", "", "",'', "", "", "", ""],
+          ["", "", "",'', "", "", "", ""]]
 
 player = "X"
 opponent = "O"
