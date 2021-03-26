@@ -112,18 +112,18 @@ def getBoard(boardMap, gameId):
 userId = "1039"
 teamId1 = "1251"
 teamId2 = "1263"
-boardSize = "3"
-target = "3"
+boardSize = 3
+target = 3
 whichGames = "myOpenGames"
 count = "1"
 
-gameId = str(createGame(userId, teamId1, teamId2, boardSize, target))
+gameId = str(createGame(userId, teamId1, teamId2, str(boardSize), str(target)))
 
 getMyGames(userId, whichGames)
 
-moveId = str(makeMove(userId, gameId, teamId1, "1,1"))
+code, moveId = str(makeMove(userId, gameId, teamId1, "1,1"))
 
-lastMove = getMoves(gameId, count)
+symbol, lastMove = getMoves(gameId, count)
 
 getBoard(0, gameId)
 
