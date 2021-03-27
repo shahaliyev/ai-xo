@@ -71,7 +71,7 @@ def makeMove(userId, gameId, teamId1, move):
 
 
 # Gets moves and return lastMove
-def getMoves(gameId, count):
+def getMoves(userId, gameId, count):
     
     url = "https://www.notexponential.com/aip2pgaming/api/index.php?type=moves&gameId=" + gameId + "&count=" + count
     
@@ -106,25 +106,3 @@ def getBoard(boardMap, gameId):
     response = requests.get(url, headers=headers)
     
     print(response.text)
-
-
-# Examples
-# userId = "1039"
-# teamId1 = "1251"
-# teamId2 = "1263"
-# boardSize = 3
-# target = 3
-# whichGames = "myOpenGames"
-# count = "1"
-
-# gameId = str(createGame(userId, teamId1, teamId2, str(boardSize), str(target)))
-
-# getMyGames(userId, whichGames)
-
-# code, moveId = str(makeMove(userId, gameId, teamId1, "1,1"))
-
-# symbol, lastMove = getMoves(gameId, count)
-
-# getBoard(0, gameId)
-
-# getBoard(1, gameId)
