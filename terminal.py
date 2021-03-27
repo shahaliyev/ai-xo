@@ -1,6 +1,5 @@
 import numpy as np
 
-
 winner = ""
 
 
@@ -36,10 +35,11 @@ def checkCells(row, target):
                 return True
     
     return False
-    
-    
+
+
 # Checks if rows meet the target
 def checkRows(board, target):
+    
     for row in board:
         if checkCells(row, target):
             return True
@@ -49,10 +49,11 @@ def checkRows(board, target):
 
 # Checks if columns meet the target
 def checkColumns(board, target):
+    
     transposed = np.transpose(board)
     return checkRows(transposed, target)
- 
-    
+
+
 # Checks if diagonals meet the target    
 def checkDiagonals(board, boardSize, target):
     
@@ -74,10 +75,11 @@ def checkDiagonals(board, boardSize, target):
             return True
             
     return False
-   
-    
+
+
 # Checks if there are moves left
 def noMovesLeft(board):
+    
     for row in board:
         for cell in row:
             if cell == "":
@@ -88,6 +90,7 @@ def noMovesLeft(board):
 
 # Checks if game is Tie
 def isTie(board):
+    
     if noMovesLeft(board) & (winner == ""):
         return True
     
@@ -96,4 +99,5 @@ def isTie(board):
 
 # Checks for terminal states    
 def isTerminal(board, boardSize, target):
+    
     return checkRows(board, target) | checkColumns(board, target) | checkDiagonals(board, boardSize, target) | noMovesLeft(board)
