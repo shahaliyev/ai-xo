@@ -89,7 +89,7 @@ def getMoves(userId, gameId, count):
 
 
 # boardMap = 1 for Board Map, 0 for Board String
-def getBoard(boardMap, gameId):
+def getBoard(userId, boardMap, gameId):
     
     if boardMap == 0:
         url = "https://www.notexponential.com/aip2pgaming/api/index.php?type=boardString&gameId=" + gameId
@@ -104,5 +104,6 @@ def getBoard(boardMap, gameId):
     }
     
     response = requests.get(url, headers=headers)
-    
     print(response.text)
+    parsed = json.loads(response.text)
+    return parsed['target']
