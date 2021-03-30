@@ -4,8 +4,23 @@ import terminal as state
 import requestsAPI as req
 
 
-def WeStartGame(userId, teamId1, teamId2, boardSize, target):
+board = list()
+boardSize = int()
+target = int()
+player = ""
+opponent = ""
+
+
+def WeStartGame(userId, teamId1, teamId2, board_size, board_target):
     
+    global board
+    global boardSize
+    global target
+    global player
+    global opponent
+    
+    boardSize = board_size
+    target = board_target
     player = "O"
     opponent = "X"
     
@@ -35,6 +50,12 @@ def WeStartGame(userId, teamId1, teamId2, boardSize, target):
 
 
 def OpStartGame(userId, teamId1, teamId2):
+    
+    global board
+    global boardSize
+    global target
+    global player
+    global opponent
     
     player = "X"
     opponent = "O"
