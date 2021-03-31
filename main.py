@@ -86,6 +86,8 @@ def OpStartGame(userId, teamId1, teamId2):
             board[bestMove[0]][bestMove[1]] = player
 
 
-WeStartGame("1039", "1263", "1288", 3, 3)
+# Test
 
-OpStartGame("1039", "1288", "1263")
+# WeStartGame("1039", "1263", "1288", 3, 3)
+
+# OpStartGame("1039", "1288", "1263")
