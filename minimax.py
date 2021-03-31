@@ -58,7 +58,7 @@ def minimax(board, boardSize, target, depth, isMax, alpha, beta, emptyCells, pla
 
 
 # Recursively calls minimax function and returns the optimal move
-def makeMove(board, boardSize, target, player, opponent):
+def makeMove(board, boardSize, target, player, opponent, turnDepth):
     
     bestMove = []
     bestVal = -float('inf')
@@ -74,7 +74,10 @@ def makeMove(board, boardSize, target, player, opponent):
                 # marking board
                 board[i][j] = player
                 # getting minimax value
-                value = minimax(board, boardSize, target, 0, False, -float('inf'), float('inf'), emptyCells, player, opponent)
+                if turnDepth == 0:
+                    value = minimax(board, boardSize, target, 0, False, -float('inf'), float('inf'), emptyCells, player, opponent)
+                if turnDepth == 1:
+                    value = minimax(board, boardSize, target, 1, False, -float('inf'), float('inf'), emptyCells, player, opponent)
                 # backtracking (erasing)
                 board[i][j] = ""
                 
@@ -227,4 +230,4 @@ def getDepth(cnt):
 #          ["",   "",   "",   "",   "",   "",   "",   "",   "",   "",   "",   ""]]
 
 
-# print(makeMove(board, boardSize, target, player, opponent))
+# print(makeMove(board, boardSize, target, player, opponent, turnDepth))
