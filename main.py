@@ -29,7 +29,7 @@ def WeStartGame(userId, teamId1, teamId2, board_size, board_target):
     
     while not state.isTerminal(board, boardSize, target):
         
-        bestMove, bestMove_str = mm.makeMove(board, boardSize, target, player, opponent)
+        bestMove, bestMove_str = mm.makeMove(board, boardSize, target, player, opponent, 0)
         code, moveId = req.makeMove(userId, gameId, teamId1, bestMove_str)
         
         if code == "OK":
@@ -79,7 +79,7 @@ def OpStartGame(userId, teamId1, teamId2):
         if state.isTerminal(board, boardSize, target):
             break
         
-        bestMove, bestMove_str = mm.makeMove(board, boardSize, target, player, opponent)
+        bestMove, bestMove_str = mm.makeMove(board, boardSize, target, player, opponent, 1)
         code, moveId = req.makeMove(userId, gameId, teamId2, bestMove_str)
         
         if code == "OK":
